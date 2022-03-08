@@ -1,0 +1,33 @@
+Aluno: Caetano Colin Torres
+
+Introdução:
+
+Foi utilizado um jupyter notebook usando a linguagem python para os modelos. a biblioteca h5py foi usada para ler os arquivos de treinamento e de teste, a biblioteca numpy foi usada para os cálculos e matplotlib para plotar dados.
+
+Todas bibliotecas necessárias para execução do programa estão listadas no arquivo requirements.txt e podem ser instaladas usando o comando "pip3 install -r requirements.txt". O problema foi resolvido usando um perceptron apenas (regressão logística), uma rede de camada rasa (MPClassifier) e uma rede convolucional, usando a biblioteca sklearn.
+
+Desenvolvimento:
+
+É importante notar o formato das imagens e normaliza-las. Cada imagem é uma matrix 64x64x3, 3 represetando a cor de cada pixel em RGB. Como a bibliote sklearn requer uma matrix de tamanha num_artefatos x tamanho_artefatos então normalizamos as imagems, transformando ela em uma imagem em tons de cinza e depois utilizamos reshape do numpy para adequar ao tamanho da biblioteca sklearn.
+
+Na parte do perceptron, normalizamos as imagens e enviamos com uma lista que diz quais imagens são gato e quais não são e treinamos. Diante dos diversos testes mudando a variável "random_state" e "seed" que são responsáveis por embaralhar os dados, o melhor resultado foi "random_state=1", com esse valor, obtemos a seguinte matriz de confusão e acurácia. (um valor de random_state=3, nos dá, por exemplo, uma acurácia de 0.32)
+
+######################
+######### ~Cat # Cat #
+######################
+# ~Cat  #  10  # 7   #
+#  Cat  #  10  # 23  #
+######################
+Acurácia: 0.66
+
+Na parte da rede de camada rasa, foi usado o MLPClassifier da biblioteca sklearn. Nesse caso, passamos alguns parâmetros a mais. É necessário definir o tamanho de cada camada, ou seja, duas camadas de tamanho 64. Além do número de iterações, nesse trabalho, foi usado o número de iterações=300. O random_state foi achado o valor random_state=8 como melhor random_State. Os seguintes resultados foram obtidos com essa rede: (obs: os outros parâmetros são os default da biblioteca)
+
+######################
+######### ~Cat # Cat #
+######################
+# ~Cat  #  5   # 12  #
+#  Cat  #  2   # 31  #
+######################
+Acurácia: 0.72
+
+Outros solvers e funções de ativação também foram testados. Desses, a combinação relu (f(x) = max(0,x)) e adam como solver foi a mais eficaz. Com outras opções, o tempo de treinamento foi descartável, exceto o solver sgd, que demora cerca de 5 minutos para uma acurácia de 0.66.
